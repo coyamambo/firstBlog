@@ -1,5 +1,21 @@
 Blog::Application.routes.draw do
 
+  resources :categories
+
+
+  devise_for :users
+
+  match 'day' => 'posts#day'
+  match 'month' => 'posts#month'
+  match 'year' => 'posts#year'
+
+  match 'day_list/:date' => 'posts#day_list'
+  match 'month_list/:date' => 'posts#month_list'
+  match 'year_list/:date' => 'posts#year_list'
+
+  match 'category_list' => 'posts#category_list'
+  match 'cat_list/:cat' => 'posts#cat_list'
+  
   resources :posts do
     resources :comments
   end

@@ -15,11 +15,22 @@
 
 </div>
 
+<tr>
+  <th><%= f.label :category_id %></th>
+  <td><%= f.collection_select :category_id, Category.all, :id, :name %></td>
+</tr>
+
 <div class="field">
 
 	<%= f.label :content %>
 	<%= f.text_field :content %>
+	※ :content の後に:rows => 5つけるとエラー
 
+</div>
+
+<div class="field">
+  <%= f.label :avatar %>
+  <%= f.file_field :avatar %>
 </div>
 
 <div class="actions">

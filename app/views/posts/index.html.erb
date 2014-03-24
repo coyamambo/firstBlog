@@ -1,20 +1,31 @@
-<div id="notice"><%= notice %></div>
 
-<h1>Posts</h1>
+<h3>now you are in my first blog page!</h3>
+<h2>Posts</h2>
+<%= form_for @search_form, :url => posts_path,
+  :html => {:method => :get} do |f| %>
 
-<ul>
-<% @posts.each do |post| %>
-<li id="post_<%= post.id %>">
-	<%= link_to post.title, post_path(post) %> (<%= post.comments.size %>)
-	<%= link_to 'Edit', edit_post_path(post) %>
-	<%= link_to 'Delete', post, :confirm => 'Sure?', 
-								:method => :delete,
-								:remote => true %>
-</li>
+  <%= select_date(@search_date, :prefix=>"search_from") %>
+  ～
+  <%= select_date(@search_date, :prefix=>"search_to") %>
+
+  <%= f.search_field :q %>
+  <%= f.submit '検索' %>
 <% end %>
-</ul>
+
+<%= render 'list' %>
 
 <%= link_to 'home', posts_path %> | <%= link_to 'New' , new_post_path %>
+
+
+<div id='user_nav'>
+  <% if user_signed_in? %>
+    Signed in as <%= current_user.email %>. <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+  <% else %>
+    <%= link_to "Sign up", new_user_registration_path %> or
+    <%= link_to "Sign in", new_user_session_path %>
+  <% end %>
+</div>
+
 
 <script>
 $(function() {
